@@ -1,0 +1,1 @@
+<button type="{{ $type }}" class="btn {{ $color }} btn-sm {{ $action }}" data-id="{{ $id }}">{{ $text }}</button>

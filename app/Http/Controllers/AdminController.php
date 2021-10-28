@@ -12,6 +12,11 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function showLoginForm(){
+        return view('login',$this->view);
+    }
+    
     public function index()
     {
 

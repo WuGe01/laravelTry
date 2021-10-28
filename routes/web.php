@@ -31,6 +31,8 @@ use App\Http\Controllers\HomeController;
 
 
 Route::get('/',[HomeController::class,'index']);
+Route::get('/login',[AdminController::class,'showLoginForm']);
+Route::get('/news',[NewsController::class,'list']);
 Route::redirect('/admin','/admin/title');
 Route::prefix('/admin')->group(function(){
     //get

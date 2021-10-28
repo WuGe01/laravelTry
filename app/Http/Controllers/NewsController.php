@@ -12,6 +12,11 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function list(){
+        return view('news',$this->view);
+    }
+
     public function index()
     {
         $all=News::all();

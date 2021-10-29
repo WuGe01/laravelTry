@@ -10,9 +10,9 @@
             <li class="list-group-item list-group-item-action position-relative menu">
                 <a href="{{ $menu->href }}">{{ $menu->text }}</a>
                 @isset($menu->subs)
-                <ul class="list-group subs" style="display:none;">
+                <ul class="list-group subs  position-absolute w-75" style="display:none;">
                     @foreach($menu->subs as $sub)
-                    <li class="list-group-item list-group-item-action position-absolute w-75" style="z-index: 2;left: 100px;">
+                    <li class="list-group-item list-group-item-action" style="z-index: 2;left: 100px;">
                         <a href="{{ $sub->href }}">{{ $sub->text }}</a>
                     </li>
                     @endforeach
@@ -22,8 +22,14 @@
             @endforeach
         </ul>
         @endisset
+        <div class="visit text-center w-100">
+            訪客人數：{{$total}}
+        </div>
 </div>
 <div class="main col-6">
+    @isset($ads)
+        <marquee behavior="" direction="">{{$ads}}</marquee>
+    @endisset
 @yield('center')
 
 </div>
@@ -47,14 +53,21 @@
 
 $('.menu').hover(
     function(){
-        $(this).children('.subs').show()
-        console.log(11)
+        $(this).children('.subs').show();
     },
     function(){
-        console.log(22)
-        $(this).children('.subs').hide()
+        $(this).children('.subs').hide();
     }
 )
+$('.newList').hover(
+    function(){
+        $(this).children('div').show();
+    },
+    function(){
+        $(this).children('div').hide();
+    }
+)
+
 
 let num=$(".img").length;
 let p=0;
@@ -82,6 +95,15 @@ $(".up,.down").on("click",function(){
     })
 
 })
+
+$(".mv").eq(0).show();
+let mvNum = $('.mv').length;
+let now = 0;
+setInterval(()=>{
+    ++now;
+    $('.mv').hide();
+    $(".mv").eq(now%mvNum).show();
+},3000);
 
 </script>
 

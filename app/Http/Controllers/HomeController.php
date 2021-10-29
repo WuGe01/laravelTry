@@ -6,89 +6,46 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use App\Models\Image;
+use App\Models\Ad;
+use App\Models\News;
+use App\Models\Mvim;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $menus=Menu::where('sh',1)->get();
-        $images=Image::where('sh',1)->get();
-        foreach($menus as $k => $menu){
-            $menus[$k]['subs'] =  $menu->subs;
-        }
-        $this->view['menus'] = $menus;
-        $this->view['images'] = $images;
+        $this->sidebar();
+        
+        $news=News::where('sh',1)->get()->filter(function ($value, $key) {
+            if($key>4){
+                $this->view['more']='/news';
+                return null;
+            }else{
+                return $value;
+            }
+        });
+        $mvim=Mvim::where('sh',1)->get();
+
+        $this->view['news'] = $news;
+        $this->view['mvim'] = $mvim;
+
         return view('main',$this->view);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    protected function sidebar(){
+        $menus=Menu::where('sh',1)->get();
+        $images=Image::where('sh',1)->get();
+        $ad=Ad::where('sh',1)->get()->pluck('text')->all();
+        $ads=implode("     ",$ad);
+
+        foreach($menus as $k => $menu){
+            $menus[$k]['subs'] =  $menu->subs;
+        }
+
+        $this->view['menus'] = $menus;
+        $this->view['images'] = $images;
+        $this->view['ads'] = $ads;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

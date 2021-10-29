@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\News;
 
-class NewsController extends Controller
+class NewsController extends HomeController
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +14,7 @@ class NewsController extends Controller
      */
 
     public function list(){
+        parent::sidebar();
         return view('news',$this->view);
     }
 

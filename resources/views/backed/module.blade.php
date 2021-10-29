@@ -55,6 +55,14 @@
 @endif
 @endisset
 </table>
+@switch($modal)
+    @case('News')
+    {!! $paginate !!}
+    @break
+    @case('Image')
+    {!! $paginate !!}
+    @break
+@endswitch
 </div>
 </div>
 

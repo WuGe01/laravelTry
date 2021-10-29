@@ -16,7 +16,9 @@
 <div class="container">
 <div class="header w-100">
 @isset($title)
-    <img src="{{ asset('storage/'.$title->img ) }}" alt="" class="w-100">
+    <a href="/" title="{{$title->text}}">
+        <img src="{{ asset('storage/'.$title->img ) }}" alt="" class="w-100">
+    </a>
 @endisset
 </div>
 <div class="main d-flex" style="height:568px">

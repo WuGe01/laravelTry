@@ -30,11 +30,13 @@ use App\Http\Controllers\HomeController;
 // Route::view('/welcome', 'welcome',['name' => 'KOKOKOKO']);
 
 
-Route::get('/',[HomeController::class,'index']);
-Route::get('/login',[AdminController::class,'showLoginForm']);
+Route::get('/',[HomeController::class,'index'])->name('login');
 Route::get('/news',[NewsController::class,'list']);
+Route::get('/login',[AdminController::class,'showLoginForm']);
+Route::get('/logout',[AdminController::class,'logout']);
+Route::post('/login',[AdminController::class,'LoginForm']);
 Route::redirect('/admin','/admin/title');
-Route::prefix('/admin')->group(function(){
+Route::prefix('/admin')->middleware('auth')->group(function(){
     //get
     Route::get('/title',[TitleController::class,'index']);
     Route::get('/ad',[AdController::class,'index']);
@@ -72,7 +74,7 @@ Route::prefix('/admin')->group(function(){
 });
 
 
-Route::prefix('/modals')->group(function(){
+Route::prefix('/modals')->middleware('auth')->group(function(){
 
     //modals
     Route::get('/addTitle',[TitleController::class,'create']);

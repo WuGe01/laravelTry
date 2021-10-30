@@ -34,9 +34,15 @@
 
 </div>
 <div class="right col-3 pr-0">
-<a href="/login">
-    <button class="btn btn-secondary w-100 mt-2 my-2">管理登入</button>
-</a>
+
+@auth
+<a href="/admin" class="btn btn-secondary w-100 mt-2 my-2">返回管理</a>
+@endauth
+
+@guest
+<a href="/login" class="btn btn-secondary w-100 mt-2 my-2">管理登入</a>
+@endguest
+
 <div class="text-center py-2 border-bottom my-1">校園映像</div>
 <div class="up"></div>
 @isset($images)

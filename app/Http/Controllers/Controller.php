@@ -20,5 +20,12 @@ class Controller extends BaseController
         $this->view['title']=Title::where("sh",1)->first();
         $this->view['total']=Total::first()->total;
         $this->view['bottom']=Bottom::first()->bottom;
+        if(!session()->has('visiter')){
+            $total=Total::first();
+            $total->total++;
+            $total->save();
+            $this->view['total']=$total->total;
+            session()->put('visiter',$total->total);
+        }
     }
 }
